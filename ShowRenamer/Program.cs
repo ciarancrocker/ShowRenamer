@@ -75,7 +75,7 @@ namespace ShowRenamer
             foreach (KeyValuePair<FileInfo, FileNameContract> keyValuePair in fileMappings)
             {
                 DateTime renameStartTime = DateTime.Now;
-                File.Move(keyValuePair.Key.Name, keyValuePair.Value.ToString());
+                File.Move(keyValuePair.Key.FullName, keyValuePair.Key.Directory.FullName + "\\" + keyValuePair.Value.ToString());
                 TimeSpan renameTotalTime = DateTime.Now - renameStartTime;
                 Console.WriteLine($"{keyValuePair.Key.Name} => {keyValuePair.Value.ToString()} ({renameTotalTime.TotalSeconds}s)");
             }
