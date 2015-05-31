@@ -17,6 +17,8 @@ namespace ShowRenamer.Extensibility
             ICollection<IPlugin> loadedPlugins = new List<IPlugin>();
             foreach(Type pluginType in visiblePlugins)
             {
+                if (pluginType == typeof(IPlugin))
+                    continue;
                 try
                 {
                     IPlugin pluginInstance = (IPlugin)Activator.CreateInstance(pluginType);
