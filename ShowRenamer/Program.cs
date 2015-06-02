@@ -1,6 +1,7 @@
 ﻿using ShowRenamer.Extensibility;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -18,6 +19,13 @@ namespace ShowRenamer
 
         static int Main(string[] args)
         {
+#if DEBUG
+            // Initialise debug
+            Debug.Listeners.Add(new TextWriterTraceListener(Console.Out));
+            Debug.AutoFlush = true;
+            Debug.Indent();
+#endif
+
             Console.WriteLine("ShowRenamer 1.1.0, by Ciaran Crocker");
             Console.WriteLine("See my website for license information");
             DirectoryInfo workingDirectory;
@@ -44,14 +52,18 @@ namespace ShowRenamer
             Dictionary<FileInfo, FileNameContract> fileMappings = new Dictionary<FileInfo, FileNameContract>();
             foreach (FileInfo currentWorkingFile in workingDirectory.GetFiles())
             {
+                Debug.WriteLine($"Processing file {currentWorkingFile.Name}");
                 foreach(IFileNameProvider provider in fileNameProviders)
                 {
+                    Debug.WriteLine($"Trying provider {provider.GetType().Name}");
                     try
                     {
                         FileNameContract newFileName = provider.Recognize(currentWorkingFile.Name);
+                        Debug.WriteLine($"Provider recognises file name.");
                     }
                     catch(FileNameNotRecognisedException)
                     {
+                        Debug.WriteLine($"Provider does't recognise filename.");
                         continue;
                     }
                 }
