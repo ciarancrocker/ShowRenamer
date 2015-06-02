@@ -60,6 +60,8 @@ namespace ShowRenamer
                     {
                         FileNameContract newFileName = provider.Recognize(currentWorkingFile.Name);
                         Debug.WriteLine($"Provider recognises file name.");
+                        fileMappings[currentWorkingFile] = newFileName;
+                        break;
                     }
                     catch(FileNameNotRecognisedException)
                     {
