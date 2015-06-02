@@ -95,8 +95,8 @@ namespace ShowRenamer.Extensibility
             return new FileNameContract()
             {
                 ShowTitle = filenameMatch.Groups["title"].ToString(),
-                SeriesNumber = Convert.ToInt32(filenameMatch.Groups["season"]),
-                EpisodeNumber = Convert.ToInt32(filenameMatch.Groups["episode"]),
+                SeriesNumber = Convert.ToInt32(filenameMatch.Groups["season"].ToString()),
+                EpisodeNumber = Convert.ToInt32(filenameMatch.Groups["episode"].ToString()),
                 Extension = filenameMatch.Groups["format"].ToString()
             };
             throw new NotImplementedException();
