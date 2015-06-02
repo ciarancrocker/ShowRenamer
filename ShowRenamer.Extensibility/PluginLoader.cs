@@ -51,13 +51,10 @@ namespace ShowRenamer.Extensibility
             // Regexes
             IEnumerable<Regex> allPluginRegexes = plugins.SelectMany(r => r.FileNameRegexes);
             Debug.WriteLine($"Found {allPluginRegexes.Count()} regexes.");
-            List<SimpleRegexMatcher> allMatchers = new List<SimpleRegexMatcher>();
             foreach (Regex r in allPluginRegexes)
             {
-                allMatchers.Add(new SimpleRegexMatcher(r));
+                allProviders.Add(new SimpleRegexMatcher(r));
             }
-            Debug.WriteLine($"Initialised {allMatchers.Count} regexes.");
-            allProviders.Concat(allMatchers);
             Debug.WriteLine($"{allProviders.Count} providers after regexes.");
             // Other providers
             allProviders.Concat(plugins.SelectMany(r => r.FileNameProviders));
