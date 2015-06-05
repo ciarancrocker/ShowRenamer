@@ -1,12 +1,7 @@
-﻿using ShowRenamer.Extensibility;
-using System;
-using System.CodeDom;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace ShowRenamer.Extensibility
 {
@@ -60,7 +55,7 @@ namespace ShowRenamer.Extensibility
         /// Verify that a regex is valid for use by this matcher.
         /// </summary>
         /// <param name="regex">The <see cref="Regex"/> that should be verified.</param>
-        /// <returns></returns>
+        /// <returns>An array of missing capture groups</returns>
         private string[] VerifyRegex(Regex regex)
         {
             bool hasTitle = false, hasSeason = false, hasEpisode = false, hasFormat = false;
