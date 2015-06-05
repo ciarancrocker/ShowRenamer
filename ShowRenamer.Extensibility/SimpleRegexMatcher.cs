@@ -38,6 +38,10 @@ namespace ShowRenamer.Extensibility
     {
         private readonly Regex _sourceRegex;
 
+        /// <summary>
+        /// Initialise a matcher using the specified regex.
+        /// </summary>
+        /// <param name="regex"><see cref="Regex"/> this matcher should use.</param>
         public SimpleRegexMatcher(Regex regex)
         {
             if(regex == null)
@@ -52,6 +56,11 @@ namespace ShowRenamer.Extensibility
             _sourceRegex = regex;
         }
 
+        /// <summary>
+        /// Verify that a regex is valid for use by this matcher.
+        /// </summary>
+        /// <param name="regex">The <see cref="Regex"/> that should be verified.</param>
+        /// <returns></returns>
         private string[] VerifyRegex(Regex regex)
         {
             bool hasTitle = false, hasSeason = false, hasEpisode = false, hasFormat = false;

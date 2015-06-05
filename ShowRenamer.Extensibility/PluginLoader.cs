@@ -9,8 +9,15 @@ using System.Threading.Tasks;
 
 namespace ShowRenamer.Extensibility
 {
+    /// <summary>
+    /// Simple plugin loader that will load visible classes that implement <see cref="IPlugin"/> or a subtype.
+    /// </summary>
     public class PluginLoader
     {
+        /// <summary>
+        /// Load all plugins in the current <see cref="AppDomain"/>
+        /// </summary>
+        /// <returns>A collection of loaded plugins.</returns>
         public static ICollection<IPlugin> LoadPlugins()
         {
             Type pluginParentType = typeof(IPlugin);
@@ -44,6 +51,11 @@ namespace ShowRenamer.Extensibility
             return loadedPlugins;
         }
 
+        /// <summary>
+        /// Load file name providers from the given collection of plugins
+        /// </summary>
+        /// <param name="plugins">A collection of plugins to load providers from</param>
+        /// <returns>All loadable instances of <see cref="IFileNameProvider"/></returns>
         public static IEnumerable<IFileNameProvider> LoadFileNameProviders(ICollection<IPlugin> plugins)
         {
             Debug.WriteLine($"Loading providers from {plugins.Count} plugins.");
@@ -62,6 +74,10 @@ namespace ShowRenamer.Extensibility
             return allProviders;
         }
 
+        /// <summary>
+        /// Load file name providers from all loadable plugins.
+        /// </summary>
+        /// <returns>All loadable instances of <see cref="IFileNameProvider"/></returns>
         public static IEnumerable<IFileNameProvider> LoadFileNameProviders()
         {
             return LoadFileNameProviders(LoadPlugins());
