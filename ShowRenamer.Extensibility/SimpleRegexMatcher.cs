@@ -44,7 +44,7 @@ namespace ShowRenamer.Extensibility
                 throw new ArgumentNullException(nameof(regex));
             }
             string[] missingGroups = VerifyRegex(regex);
-            if(missingGroups.Count() > 0)
+            if(missingGroups.Any())
             {
                 throw new MissingGroupException(regex, missingGroups);
             }
@@ -80,7 +80,6 @@ namespace ShowRenamer.Extensibility
                 EpisodeNumber = Convert.ToInt32(filenameMatch.Groups["episode"].ToString()),
                 Extension = filenameMatch.Groups["format"].ToString()
             };
-            throw new NotImplementedException();
         }
     }
 }

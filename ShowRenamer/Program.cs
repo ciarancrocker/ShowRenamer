@@ -10,12 +10,6 @@ namespace ShowRenamer
 {
     class Program
     {
-        private static readonly List<Regex> FileNameRegexes = new List<Regex>
-        {
-            new Regex("(?'title'.+)[sS](?'season'\\d+)[eE](?'episode'\\d+).*\\.(?'format'avi|mp4|mkv|mpeg|mpg)"),
-            new Regex("(?'title'.+)(?'season'\\d+)[xX](?'episode'\\d+).*\\.(?'format'avi|mp4|mkv|mpeg|mpg)")
-        };
-
         static int Main(string[] args)
         {
 #if DEBUG
@@ -46,7 +40,7 @@ namespace ShowRenamer
                     return byte.MaxValue;
                 }
             }
-            // NEW CODE
+
             IEnumerable<IFileNameProvider> fileNameProviders = PluginLoader.LoadFileNameProviders();
             Dictionary<FileInfo, FileNameContract> fileMappings = new Dictionary<FileInfo, FileNameContract>();
             foreach (FileInfo currentWorkingFile in workingDirectory.GetFiles())
@@ -113,11 +107,6 @@ namespace ShowRenamer
         {
             for (int index = 0; index < width; index++)
                 Console.Write("-");
-        }
-
-        private static string SanitizeTitle(string title)
-        {
-            return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(title.Replace('.', ' ').Replace('-', ' ').Replace('_', ' ').Trim());
         }
     }
 }
