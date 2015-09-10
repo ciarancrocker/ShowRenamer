@@ -56,36 +56,13 @@ namespace ShowRenamer.Extensibility
         /// </summary>
         /// <param name="regex">The <see cref="Regex"/> that should be verified.</param>
         /// <returns>An array of missing capture groups</returns>
-        private string[] VerifyRegex(Regex regex)
+        private static string[] VerifyRegex(Regex regex)
         {
-            bool hasTitle = false, hasSeason = false, hasEpisode = false, hasFormat = false;
-            List<string> missingGroups = new List<string>();
-            foreach(string group in regex.GetGroupNames())
+            List<string> missingGroups = new List<string> {"title", "season", "episode", "format"};
+            foreach (string group in regex.GetGroupNames().Where(g => missingGroups.Contains(g)))
             {
-                switch(group)
-                {
-                    case "title":
-                        hasTitle = true;
-                        break;
-                    case "season":
-                        hasSeason = true;
-                        break;
-                    case "episode":
-                        hasEpisode = true;
-                        break;
-                    case "format":
-                        hasFormat = true;
-                        break;
-                }
+                missingGroups.Remove(group);
             }
-            if (!hasTitle)
-                missingGroups.Add("title");
-            if (!hasSeason)
-                missingGroups.Add("season");
-            if (!hasEpisode)
-                missingGroups.Add("episode");
-            if (!hasFormat)
-                missingGroups.Add("format");
             return missingGroups.ToArray();
         }
 
